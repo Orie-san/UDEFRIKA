@@ -1,3 +1,5 @@
+import json, requests
+
 from django.http import JsonResponse
 from django.shortcuts import redirect, render, get_object_or_404
 from taggit.models import Tag
@@ -289,6 +291,43 @@ def update_cart(request):
                                                              'cart_total_amount': cart_total_amount})
     return JsonResponse({"data": context, 'totalcartitems': len(request.session['cart_data_obj'])})
 
+@login_required
+def mobile_money(request):
+    cart_total_amount = 0
+    if 'cart_data_obj' in request.session:
+        for p_id, item in request.session['cart_data_obj'].items():
+            cart_total_amount += int(item['qty']) * float(item['price'])
+    reqUrl = "https://api.noupia.com/pay"
+
+    headersList = {
+
+        "Accept": "*/*",
+        "Noupia-API-Signature": "np-live",
+        "Noupia-API-Key": "",
+        "Noupia-Product-Key": "",
+        "Content-Type": "application/json"
+
+    }
+
+    # pay
+    payload = json.dumps({
+        "operation": "initiate",
+        "reference": "Paiement cours Udemy",
+        "amount": 100,
+        "phone": request.POST.get("mobile"),
+        "method": "mobilemoney"
+    })
+
+    # verify transaction
+    payload = json.dumps({
+        "operation": "verify",
+        "transaction": "PAYCM230620230853552948173788"
+    })
+
+    response = requests.request("POST", reqUrl, data=payload, headers=headersList)
+    print(response.text)
+    print(response.json()['data']['status'])
+
 
 @login_required
 def checkout_view(request):
@@ -311,7 +350,7 @@ def checkout_view(request):
         # Getting total amount for The Cart
         for p_id, item in request.session['cart_data_obj'].items():
             cart_total_amount += int(item['qty']) * float(item['price'])
-            print("\n\nTEST "+item['image'])
+            print(""+item['image'])
             cart_order_products = CartOrderProducts.objects.create(
                 order=order,
                 invoice_no="INVOICE_NO-" + str(order.id),  # INVOICE_NO-5,
