@@ -87,6 +87,10 @@ class Product(models.Model):
     title = models.CharField(max_length=100, default="Elearning")
     image = models.CharField(max_length=2000)
     language = models.CharField(max_length=20, default="EN")
+    avg_rating = models.DecimalField(max_digits=99999999999999, default="4.00", decimal_places=2)
+    headline = models.TextField(default="here is a headline", null=True, blank=True)
+    instructional_level = models.CharField(default="All levels", max_length=255)
+    gift_url = models.CharField(max_length=2000, default="https://www.udemy.com/")
     # description = models.TextField(null=True, blank=True, default="This is the product")
     description = RichTextUploadingField(null=True, blank=True, default="This is the product")
 
@@ -98,21 +102,20 @@ class Product(models.Model):
     # type = models.CharField(max_length=100, default="Organic", null=True, blank=True)
     stock_count = models.CharField(max_length=100, default="1000000", null=True, blank=True)
     life = models.CharField(max_length=100, default="Illimited", null=True, blank=True)
-    gift_url = models.CharField(max_length=1000, default=" ", null=True, blank=True)
     # mfd = models.DateTimeField(auto_now_add=False, null=True, blank=True)
 
     tags = TaggableManager(blank=True)
 
     # tags = models.ForeignKey(Tags, on_delete=models.SET_NULL, null=True)
 
-    product_status = models.CharField(choices=STATUS, max_length=10, default="in_review")
+    product_status = models.CharField(choices=STATUS, max_length=10, default="published")
 
     status = models.BooleanField(default=True)
     in_stock = models.BooleanField(default=True)
     featured = models.BooleanField(default=False)
     digital = models.BooleanField(default=True)
 
-    sku = ShortUUIDField(unique=True, length=4, max_length=10, prefix="sku", alphabet="1234567890")
+    sku = ShortUUIDField(unique=True, length=6, max_length=10, prefix="sku", alphabet="1234567890")
 
     date = models.DateTimeField(auto_now_add=True)
     updated = models.DateTimeField(null=True, blank=True)

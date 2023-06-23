@@ -72,7 +72,7 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="col-xl-3 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
+                            <!--<div class="col-xl-3 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
                                 <div class="card">
                                     <h5 class="mb-30">By Instructors</h5>
                                     <div class="d-flex">
@@ -81,12 +81,13 @@
                                             <input class="form-check-input filter-checkbox" data-filter="vendor" type="checkbox" name="checkbox" id="exampleCheckbox1" value="{{ v.id }}" />
                                             <label class="form-check-label" for="exampleCheckbox1"><span>{{v.title}}</span></label>
                                             <br /><br />
+
                                             {% endfor %}
                                         </div>
                                         
                                     </div>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="col-xl-3 col-lg-6 col-md-6 mb-lg-0 mb-md-2 mb-sm-2">
                                 <div class="card">
                                     <h5 class="mb-30">Popular Tags</h5>
@@ -110,8 +111,8 @@
                                                 <div id="slidder-range" class="mb-20"></div>
                                                 <input type="range" name="ranDge" value="{{ min_max_price.price__min|floatformat:2 }}" class="slider-range" id="range" min="{{ min_max_price.price__min }}" max="{{ min_max_price.price__max }}" oninput="max_price.value=this.value">
                                                 <div class="d-flex justify-content-between">
-                                                    <div class="caption">From: <strong id="slider-range-value1" class="text-brand">${{ min_max_price.price__min|floatformat:2 }}</strong></div>
-                                                    <div class="caption">To: <strong id="slider-range-value2" class="text-brand">${{ min_max_price.price__max|floatformat:2 }}</strong></div>
+                                                    <div class="caption">From: <strong id="slider-range-value1" class="text-brand">XAF {{ min_max_price.price__min|floatformat:2 }}</strong></div>
+                                                    <div class="caption">To: <strong id="slider-range-value2" class="text-brand">XAF {{ min_max_price.price__max|floatformat:2 }}</strong></div>
                                                 </div>
                                                 <input type="number"  name="" value="{{ min_max_price.price__min|floatformat:2 }}" id="max_price" min="{{ min_max_price.price__min }}" max="{{ min_max_price.price__max }}" placeholder="Current Price" onkeyup="range.value=this.value">
                                             </div>
@@ -129,7 +130,7 @@
                 <div class="col-12">
                     <div class="shop-product-fillter">
                         <div class="totall-product">
-                            <p>We found <strong class="text-brand">{{products.count}}</strong> items for you!</p>
+                            <p>We found <strong class="text-brand">{{products.count}}</strong> courses for you!</p>
                         </div>
                         <div class="sort-by-product-area">
                             <div class="sort-by-cover mr-10">
@@ -191,7 +192,7 @@
                                         <a href="{% url 'core:product-detail' p.pid %}" class="action-btn"><i class="fi-rs-eye"></i></a>
                                     </div>
                                     <div class="product-badges product-badges-position product-badges-mrg">
-                                        <span class="hot">-{{p.get_percentage|floatformat:0}}%</span>
+                                        <span class="hot">{{p.language}}</span>
                                     </div>
                                 </div>
                                 <div class="product-content-wrap">
@@ -200,8 +201,29 @@
                                     </div>
                                     <h2><a href="{% url 'core:product-detail' p.pid %}">{{ p.title }}</a></h2>
                                     <div class="product-rate-cover">
-                                        <i class="fas fa-star text-warning"></i>
-                                        <span class="font-small ml-5 text-muted"> ({{ p.reviews.all.count }})</span>
+                                           {% if p.avg_rating >= 4 and p.avg_rating < 5 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% endif %}
+
+                                        {% if p.avg_rating >= 3 and p.avg_rating < 4 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% endif %}
+
+                                        {% if p.avg_rating >= 2 and p.avg_rating < 3 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% endif %}
+
+                                        {% if p.avg_rating >= 1 and p.avg_rating < 2 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% endif %}
+
+                                        <span class="font-small ml-5 text-muted"> ({{ p.avg_rating }})</span>
 
                                     </div>
                                     <div>
@@ -209,13 +231,13 @@
                                     </div>
                                     <div class="product-card-bottom">
                                         <div class="product-price">
-                                            <span>$</span> <span class="current-product-price-{{ p.id }}">{{p.price}}</span>
-                                            <span class="old-price">${{p.old_price}}</span>
+                                            <span>XAF </span> <span class="current-product-price-{{ p.id }}">{{p.price}}</span>
+                                            <!--<span class="old-price">XAF {{p.old_price}}</span>-->
                                         </div>
                                         <div class="add-cart">
                                             <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">
                                             <input type="hidden" class="product-pid-{{ p.id }}" value="{{ p.pid }}">
-                                            <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image.url }}">
+                                            <input type="hidden" class="product-image-{{ p.id }}" value="{{ p.image }}">
                                             <input type="hidden" class="product-id-{{ p.id }}" value="{{ p.id }}">
                                             <input type="hidden" class="product-title-{{ p.id }}" value="{{ p.title }}">
                                             <div class="d-flex">

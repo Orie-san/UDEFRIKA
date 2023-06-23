@@ -56,7 +56,7 @@
                     <div class="border p-40 cart-totals ml-30 mb-50">
                         <div class="d-flex align-items-end justify-content-between mb-30">
                             <h4>Your Order</h4>
-                            <h6 class="text-muted">Subtotal - <span class="text-brand">${{cart_total_amount|floatformat:2}}</span></h6>
+                            <h6 class="text-muted">Subtotal - <span class="text-brand">XAF {{cart_total_amount|floatformat:2}}</span></h6>
 
                         </div>
                         <div class="divider-2 mb-30"></div>
@@ -76,11 +76,11 @@
                                             <h6 class="text-muted pl-20 pr-20">x {{ item.qty }}</h6>
                                         </td>
                                         <td>
-                                            <h5 class="text-muted">${{item.price}}</h5>
+                                            <h5 class="text-muted">XAF {{item.price}}</h5>
                                         </td>
 
                                         <td>
-                                            <h5 class="text-brand">${% widthratio item.price 1 item.qty %}</h5>
+                                            <h5 class="text-brand">XAF {% widthratio item.price 1 item.qty %}</h5>
                                         </td>
                                     </tr>
                                     {% endfor %}
@@ -90,7 +90,7 @@
                     </div>
                     <div class="payment ml-30">
                         <h4 class="mb-30">Payment</h4>
-                        <div class="payment_option">
+                        <!--<div class="payment_option">
                             <div class="custome-radio">
                                 <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios3" checked="">
                                 <label class="form-check-label" for="exampleRadios3" data-bs-toggle="collapse" data-target="#bankTranfer" aria-controls="bankTranfer">Direct Bank Transfer</label>
@@ -103,16 +103,20 @@
                                 <input class="form-check-input" required="" type="radio" name="payment_option" id="exampleRadios5" checked="">
                                 <label class="form-check-label" for="exampleRadios5" data-bs-toggle="collapse" data-target="#paypal" aria-controls="paypal">Online Getway</label>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="payment-logo d-flex">
-                            <img class="mr-15" src="{% static 'assets/imgs/theme/icons/payment-paypal.svg' %}" alt="">
+                            <a href="{% url 'core:index' %}"><img class="mr-15" src="{% static 'assets/imgs/theme/payment-method.png' %}" alt=""></a>
+                        </div>
+
+                        <!--<div class="payment-logo d-flex">
+
                             <img class="mr-15" src="{% static 'assets/imgs/theme/icons/payment-visa.svg' %}" alt="">
                             <img class="mr-15" src="{% static 'assets/imgs/theme/icons/payment-master.svg' %}" alt="">
                             <img src="{% static 'assets/imgs/theme/icons/payment-zapper.svg' %}" alt="">
                         </div>
                         <div class="w-50">
                             {{paypal_payment_button.render}}
-                        </div>
+                        </div>-->
                         <!-- <a href="#" class="btn btn-fill-out btn-block mt-30">Place an Order<i class="fi-rs-sign-out ml-15"></i></a> -->
                     </div>
                 </div>
