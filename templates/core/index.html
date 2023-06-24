@@ -99,16 +99,46 @@
                                                     <!-- <div class="product-rate d-inline-block"> -->
                                                         <!-- <div class="product-rating" style="width: 20%"></div> -->
                                                     <!-- </div> -->
+                                                {% if p.avg_rating >= 5 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
                                                     <i class="fas fa-star text-warning"></i>
-                                                    <span class="font-small ml-5 text-muted"> ({{ p.reviews.all.count }})</span>
+                                        {% endif %}
+                                                    {% if p.avg_rating >= 4 and p.avg_rating < 5 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% endif %}
+
+                                        {% if p.avg_rating >= 3 and p.avg_rating < 4 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% endif %}
+
+                                        {% if p.avg_rating >= 2 and p.avg_rating < 3 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% endif %}
+
+                                        {% if p.avg_rating >= 1 and p.avg_rating < 2 %}
+                                            <i class="fas fa-star text-warning"></i>
+                                        {% endif %}
+
+                                        <span class="font-small ml-5 text-muted"> ({{ p.avg_rating }})</span>
+                                                    <!--<i class="fas fa-star text-warning"></i>-->
+                                                    <!--<span class="font-small ml-5 text-muted"> ({{ p.reviews.all.count }})</span>-->
                                                 </div>
                                                 <div>
                                                     <span class="font-small text-muted">By <a href="">{{p.vendor.title}}</a></span>
                                                 </div>
                                                 <div class="product-card-bottom">
                                                     <div class="product-price">
-                                                        <span>$</span> <span class="current-product-price-{{ p.id }}">{{p.price}}</span>
-                                                        <span class="old-price">${{p.old_price}}</span>
+                                                        <span>XAF </span> <span class="current-product-price-{{ p.id }}">{{p.price}}</span>
+                                                        <!--<span class="old-price">${{p.old_price}}</span>-->
                                                     </div>
                                                     <div class="add-cart">
                                                         <input type="hidden" value="1" id="product-quantity" class="product-quantity-{{ p.id }}">

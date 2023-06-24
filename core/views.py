@@ -24,7 +24,8 @@ from django.core import serializers
 
 def index(request):
     # bannanas = Product.objects.all().order_by("-id")
-    products = Product.objects.filter(product_status="published", featured=True).order_by("-id")
+    test_ahp = Product.objects.filter(product_status="published").order_by("-id")
+    products = Product.objects.filter(product_status="published").order_by("-id")[:20]
     categories = Category.objects.all()
 
     context = {
