@@ -8,7 +8,6 @@ categories = ['Development', 'Business', 'Design', 'Finance+%26+Accounting', 'He
 ids_instructor = []
 ids_courses = []
 
-
 data_courses = "udefrika_data_course.csv"
 with open(data_courses, "a") as data_courses:
   data_courses.write("id_udemy;title;url;price;user;category;image;\
