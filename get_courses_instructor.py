@@ -2,9 +2,9 @@ import requests
 import string
 import csv
 
-categories = ['Development', 'Business', 'Design', 'Finance+%26+Accounting', 'Health+%26+Fitness', \
-'IT+%26+Software', 'Lifestyle', 'Marketing', 'Music', 'Office Productivity', 'Personal Development', \
-'Photography+%26+Video', 'Teaching+%26+Academics']
+categories = ['Development', 'Business', 'Design', 'Finance+%26+Accounting', 'Health+%26+Fitness',
+              'IT+%26+Software', 'Lifestyle', 'Marketing', 'Music', 'Office Productivity', 'Personal Development',
+              'Photography+%26+Video', 'Teaching+%26+Academics']
 ids_instructor = []
 ids_courses = []
 
